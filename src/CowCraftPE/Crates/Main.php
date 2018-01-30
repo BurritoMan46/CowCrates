@@ -25,11 +25,11 @@ class Main extends PluginBase implements Listener{
     @mkdir($this->getDataFolder());
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
 		$this->loadConfig();
-		$this->getLogger()->notice("CowCraftNetwork Crates Enabled!");;
+		$this->getLogger()->notice("MysteryCrates Enabled!");;
 	}
 	
 	public function onDisable(){
-		$this->getLogger()->notice("CowCraftNetwork Crates Enabled!");
+		$this->getLogger()->notice("MysteryCrates Disabled!");
 	}
 	public function loadConfig(){
 	  $this->saveResource("config.yml");
@@ -37,18 +37,18 @@ class Main extends PluginBase implements Listener{
 		  'Crates-Block' => 54,
       'Key-Item-Id' => 370,
       'Broadcast' => true,
-      'BroadcastMessage' => "&6{player}&b Used a crate and got awesome rewards!",
+      'BroadcastMessage' => "&6{player}&b Used a MysteryCrate and got awesome rewards!",
       'Common' => array(
         'Items' => [],
-        'Money' => 100,
+        'Money' => 10000,
         'Commands' => []),
       'Rare' => array(
         'Items' => [],
-        'Money' => 300,
+        'Money' => 45000,
         'Commands' => []),
       'Legendary' => array(
         'Items' => [],
-        'Money' => 500,
+        'Money' => 75000,
         'Commands' => [])
     ));
 	  $this->config->save();
@@ -95,7 +95,7 @@ class Main extends PluginBase implements Listener{
 		if($event->getBlock()->getId($block)){
 		   if($event->getItem()->getId($key)){
 			 $event->setCancelled(); 
-			 $player->addTitle(TextFormat::AQUA . "Opening a Crate...");
+			 $player->addTitle(TextFormat::AQUA . "Opening a MysteryCrate...");
 			 $level = $player->getLevel();
         		$x = $crate->getX();
         		$y = $crate->getY();
@@ -129,7 +129,7 @@ class Main extends PluginBase implements Listener{
 					$this->getServer()->broadcastMessage($this->translateColors(str_replace("{player}", $name, $message)));
 					 $level->addSound(new PopSound(new Vector3($x, $y + 1, $z)));
 				}
-				$player->sendMessage("§l§7[§6CowCraftPE§7]§r§6 You Opened A Common Crate! Look In Your Inventory For Your Rewards");
+				$player->sendMessage("§l§7[§6AversionAnnouncer§7]§r§6 You Opened A Common Crate! Look In Your Inventory For Your Rewards");
 				break;
 				case 2: //Rare
 				EconomyAPI::getInstance()->addMoney($player, "$rarem");
@@ -139,7 +139,7 @@ class Main extends PluginBase implements Listener{
 					$message = $this->config->get["Broadcast-Message"];
 					$this->getServer()->broadcastMessage($this->translateColors(str_replace("{player}", $name, $message)));		
 				}
-				$player->sendMessage("§l§7[§6CowCraftPE§7]§r§a You Opened A Rare Crate! Look In Your Inventory For Your Rewards");
+				$player->sendMessage("§l§7[§6AversionAnnouncer§7]§r§a You Opened A Rare Crate! Look In Your Inventory For Your Rewards");
 					 $level->addSound(new PopSound(new Vector3($x, $y + 1, $z)));
 				break;
 				case 2: //Legendary
@@ -150,7 +150,7 @@ class Main extends PluginBase implements Listener{
 					$message = $this->config->get["Broadcast-Message"];
 					$this->getServer()->broadcastMessage($this->translateColors(str_replace("{player}", $name, $message)));		
 				}
-				$player->sendMessage("§l§7[§6CowCraftPE§7]§r§b You Opened A Legendary Crate! Look In Your Inventory For Your Rewards");
+				$player->sendMessage("§l§7[§6AversionAnnouncer§7]§r§b You Opened A Legendary Crate! Look In Your Inventory For Your Rewards");
 					 $level->addSound(new PopSound(new Vector3($x, $y + 1, $z)));
 				break;
 			}
